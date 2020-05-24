@@ -1,0 +1,52 @@
+{
+  "name": "touitteur",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "code:clean": "yarn code:lint && yarn code:format",
+    "code:lint": "eslint --ext .js,.jsx,.ts,.tsx \"src/\" --fix",
+    "code:format": [
+      "prettier './src/**/*.{js,jsx,ts,tsx,css,scss,php,html}' --write",
+      "php-cs-fixer fix"
+    ],
+    "code:check:rules": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "autoprefixer": "^9.7.3",
+    "browser-sync": "^2.26.7",
+    "browserslist": "^4.8.2",
+    "del": "^5.1.0",
+    "eslint": "^6.7.2",
+    "glob": "^7.1.6",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-changed": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-flatmap": "^1.0.2",
+    "gulp-imagemin": "^6.1.1",
+    "gulp-purgecss": "^1.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-svgmin": "^2.2.0",
+    "gulp-terser": "^1.2.0",
+    "poetic": "^1.1.0",
+    "postcss": "^7.0.25",
+    "purgecss": "^1.4.2",
+    "resolve": "^1.14.1"
+  },
+  "browserslist": [
+    "last 2 version",
+    "not dead",
+    "> 0.2%"
+  ],
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.11.2"
+  }
+}

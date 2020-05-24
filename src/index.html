@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Touitteur</title>
+
+    <link rel="stylesheet" href="css/base_reset2020.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="tt-header">
+      <h1 class="container">Touiteur</h1>
+    </header>
+    <nav class="tt-nav">
+      <ul>
+        <li>
+          <button id="newTouit">
+            <img src="img/sendSvg.svg" alt="Send New Twit" />
+          </button>
+        </li>
+
+        <li>
+          <button id="trendingTwits">
+            <img src="img/trending.svg" alt="Show trending words" />
+          </button>
+        </li>
+
+        <li>
+          <button id="mostLikedTwits">
+            <img src="img/mostLiked.svg" alt="Show most liked Twits" />
+          </button>
+        </li>
+
+        <li>
+          <button id="influencers">
+            <img src="img/influencersBlack.svg" alt="Show the 3 most prolific users" />
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <!-- new twit -->
+    <section class="tt-newTwit__container">
+      <form class="tt-newTwit__form tt-form container">
+        <div class="tt-newTwit__pseudo--container inputContainer">
+          <input id="tt-newTwit__pseudo" placeholder=" " minlength="3" maxlength="16" required />
+          <label for="tt-newTwit__pseudo">Ton pseudo</label>
+        </div>
+        <div class="tt-newTwit__message--container inputContainer">
+          <input
+            name="tt-newTwit__message"
+            id="tt-newTwit__message"
+            minlength="3"
+            maxlength="256"
+            placeholder=" "
+            required
+          />
+          <label for="tt-newTwit__message">Ton message</label>
+        </div>
+
+        <button id="tt-newTwit__submit" type="submit">
+          <img src="img/sendTwitSvg.svg" alt="Send Twit" />
+        </button>
+      </form>
+    </section>
+    <section class="tt-mostOf">
+      <article class="tt-trending container">
+        <ul class="tt-trending__list"></ul>
+      </article>
+      <article class="tt-mostLiked container"></article>
+      <article class="tt-influencers container"></article>
+    </section>
+    <main>
+      <!-- archives -->
+      <section class="tt-archiveTwit__container container"></section>
+    </main>
+    <aside class="tt-comment__container">
+      <button id="tt-comment__close">✕</button>
+      <h2 class="tt-comment__title">Commentaires</h2>
+      <form class="tt-form">
+        <div class="tt-comment__message--container inputContainer">
+          <input
+            type="text"
+            id="tt-comment__message"
+            minlength="3"
+            maxlength="256"
+            placeholder=" "
+          />
+          <label for="tt-comment__message">Your comment</label>
+        </div>
+
+        <div class="tt-comment__pseudo--container inputContainer">
+          <input type="text" id="tt-comment__pseudo" minlength="3" maxlength="16" placeholder=" " />
+          <label for="tt-comment__pseudo">Your Pseudo</label>
+        </div>
+
+        <button id="tt-comment__submit" type="submit">
+          <img src="img/sendSvg.svg" alt="Send New tt-comment" />
+        </button>
+      </form>
+      <ul class="tt-comment__archives"></ul>
+    </aside>
+    <div class="tt-transparentBg_closer"></div>
+    <script type="module" src="scripts/scripts.js"></script>
+  </body>
+</html>

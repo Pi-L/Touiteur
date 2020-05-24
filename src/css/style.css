@@ -1,0 +1,693 @@
+:root {
+  --PrimaryText: #f9f6f7;
+  --PrimaryBg: #263f44;
+  --SecondaryBg: #fff1cf;
+  --NavBg: #ffd369;
+  --CardBg: #015668;
+  --cardText: #fff;
+  --secondaryText: hsl(195, 100%, 6%);
+}
+
+body,
+html {
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  position: relative;
+  background-color: var(--CardBg);
+  min-height: 100vh;
+  width: 100%;
+  color: var(--PrimaryText);
+
+  overflow: auto;
+}
+
+body.commenting {
+  overflow: hidden;
+}
+
+/* ------------- utility classes --------------- */
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+form.tt-form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+form.tt-form > * {
+  height: 6rem;
+}
+
+.inputContainer {
+  position: relative;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.inputContainer > * {
+  display: block;
+  resize: none;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+.inputContainer > label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: top 0.3s, font-size 0.3s;
+  font-size: 1.6rem;
+  color: var(--secondaryText);
+}
+
+.inputContainer > label.alert {
+  color: red;
+}
+
+.inputContainer > input {
+  height: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.inputContainer > input:required {
+  box-shadow: none;
+}
+
+.inputContainer > input.alert {
+  border: 1px red solid;
+}
+
+.inputContainer input:focus + label,
+.inputContainer input:not(:placeholder-shown) + label {
+  top: 1.3rem;
+  font-size: 1.4rem;
+}
+
+form button,
+nav button {
+  padding: 0.5rem;
+  width: auto;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--cardText);
+  box-shadow: 0.1rem 0.1rem 0.1rem #000;
+}
+
+form button:hover,
+form button:focus,
+nav button:hover,
+nav button:focus {
+  border: 0.2rem solid var(--NavBg);
+}
+
+nav button:active,
+form button:active {
+  box-shadow: inset 0.1rem 0.1rem 0.1rem #000;
+}
+
+button img {
+  height: 100%;
+  width: auto;
+}
+
+.tt-postTime,
+.tt-archiveTwit__article .tt-postTime {
+  font-size: 1.2rem;
+  padding-top: 0.5rem;
+}
+
+/* ------------- HEADER & NAV -------------------- */
+
+.tt-header {
+  position: relative;
+  width: 100%;
+  height: 20vh;
+  background-color: var(--PrimaryBg);
+}
+
+.tt-header > h1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6.5rem;
+  padding: 5vh;
+  color: var(--PrimaryText);
+}
+
+.tt-nav {
+  position: sticky;
+  top: 0;
+  background-color: var(--NavBg);
+  width: 100%;
+  height: 5rem;
+  z-index: 1000;
+}
+
+.tt-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.tt-nav ul li {
+  margin: 0 0.5rem;
+  padding: 0.4rem 0.5rem;
+  height: 5rem;
+}
+
+.tt-nav button[id] {
+  height: 100%;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0.1rem 0.1rem 0.1rem #000;
+  user-select: none;
+}
+
+.tt-nav button[id] > img {
+  height: 100%;
+  width: auto;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tt-nav button[id]:hover,
+.tt-nav button[id]:focus {
+  border: 0.2rem solid var(--PrimaryBg);
+  outline: none;
+}
+
+.tt-nav button[id]:active {
+  box-shadow: inset 0.1rem 0.1rem 0.1rem #000;
+}
+
+/* ------------- New twit -------------------- */
+
+.tt-newTwit__container,
+.tt-mostOf {
+  width: 100%;
+  position: sticky;
+  top: 5rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s, padding 0.6s;
+  background-color: var(--PrimaryBg);
+  padding: 0;
+  z-index: 1000;
+}
+.tt-newTwit__container.shown,
+.tt-mostOf[class*='shown'] {
+  max-height: 90vh;
+  padding: 2rem;
+}
+
+.tt-newTwit__pseudo--container {
+  flex: 1 1 0;
+}
+
+.tt-newTwit__message--container {
+  flex: 5 1 0;
+}
+
+@media screen and (max-width: 820px) {
+  .tt-nav ul {
+    justify-content: center;
+  }
+
+  form.tt-form {
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  .tt-newTwit__pseudo--container {
+    flex: 1 1 calc(100% - 6.5rem);
+    order: 1;
+  }
+  .tt-newTwit__message--container {
+    flex: 1 1 100%;
+    order: 0;
+    margin-right: 0;
+  }
+
+  #tt-newTwit__submit {
+    flex: 0 1 6rem;
+    order: 2;
+  }
+}
+
+/* ------------- MAIN -------------------- */
+
+main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--SecondaryBg);
+}
+
+/* ------------- Twit ARCHIVE -------------------- */
+
+.tt-archiveTwit__container {
+  padding: 2rem;
+  display: flex;
+  flex-flow: row-reverse wrap-reverse;
+  /* ! testing overwrite for lazyload  */
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.tt-archiveTwit__article {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr) 3rem);
+  grid-template-rows: minmax(2rem, 1fr) auto auto;
+  grid-template-areas:
+    'message message message message'
+    'name name name name'
+    'comments comments heart heart'
+    'date date date badge';
+
+  background-color: var(--SecondaryBg);
+  background-color: var(--CardBg);
+
+  color: var(--cardText);
+  padding: 1.6rem;
+  margin: 1rem;
+  box-shadow: 4px 4px rgba(200, 200, 200, 0.5);
+  border-radius: 10px;
+  gap: 0.5rem;
+
+  max-width: 35rem;
+  flex: 0 1 auto;
+}
+
+.tt-archiveTwit__article > * {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.tt-archiveTwit__article__pseudo {
+  grid-area: name;
+  font-size: 2rem;
+  padding: 1rem;
+  padding-bottom: 2rem;
+  vertical-align: middle;
+  text-align: end;
+  overflow: auto;
+}
+
+.tt-archiveTwit__article__message {
+  grid-area: message;
+  font-size: 3rem;
+  padding: 1rem;
+
+  overflow-y: auto;
+  overflow-wrap: break-word;
+}
+
+.tt-archiveTwit__article__message::before {
+  display: inline-block;
+  /* content: '\a0\a0🐒'; */
+  content: '❝\a0\a0';
+  font-size: 1.3em;
+  padding: 0.1rem;
+  /*  transform: rotateY(180deg); */
+}
+
+.tt-archiveTwit__article__message::after {
+  display: inline-block;
+  /* content: '\a0\a0🐒'; */
+  content: '\a0\a0❞';
+  padding: 0.1rem;
+  font-size: 1.3em;
+}
+
+.tt-archiveTwit__article__hearts {
+  grid-area: heart;
+
+  color: var(--cardText);
+  font-size: 4rem;
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+
+  background-color: transparent;
+  border: none;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tt-archiveTwit__article__heartsCount {
+  grid-area: likes;
+  vertical-align: middle;
+  font-size: 3rem;
+  margin-left: 1rem;
+}
+
+.tt-archiveTwit__article__hearts.voted {
+  color: red;
+}
+
+/* comments */
+
+#tt-archiveTwit__article__comments {
+  grid-area: comments;
+  color: var(--cardText);
+  height: 4rem;
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+  background-color: transparent;
+  border: none;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#tt-archiveTwit__article__comments > img {
+  height: 100%;
+  width: auto;
+  margin-right: 1rem;
+  color: var(--cardText);
+}
+
+.tt-archiveTwit__article__commentsCount {
+  font-size: 3rem;
+}
+
+.tt-archiveTwit__article__date {
+  grid-area: date;
+}
+
+.tt-archiveTwit__article__badge {
+  grid-area: badge;
+  margin-left: 0.5rem;
+}
+
+/* ----- tt-comments ------ */
+
+aside.tt-comment__container {
+  display: none;
+  opacity: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 50rem;
+  width: 35rem;
+  max-width: 0;
+  max-height: 0;
+  padding: 0;
+  transition: opacity 0.2s;
+  background-color: var(--SecondaryBg);
+  color: var(--secondaryText);
+  border-radius: 1rem;
+  border: 2px var(--CardBg) solid;
+  z-index: 2;
+}
+
+aside.tt-comment__container.shown {
+  display: grid;
+  opacity: 1;
+  max-width: 98vw;
+  max-height: 90vh;
+  padding: 0.5rem;
+  z-index: 2000;
+
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: max-content max-content auto;
+}
+
+aside.tt-comment__container.shown > #tt-comment__close {
+  display: block;
+  grid-column: 1 / span 1;
+  margin: 0;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: inset -0.1rem -0.1rem 0.1rem #222;
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  border: 0.1rem solid var(--PrimaryBg);
+  font-size: 1.2rem;
+}
+
+aside.tt-comment__container.shown > #tt-comment__close:hover {
+  box-shadow: -0.1rem -0.1rem 0.1rem #222;
+}
+
+aside.tt-comment__container.shown > .tt-comment__title {
+  grid-column: 2 / span 1;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+aside.tt-comment__container.shown > .tt-form {
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  height: auto;
+  grid-column: span 2;
+  color: var(--secondaryText);
+}
+
+aside.tt-comment__container.shown > .tt-form > .tt-comment__message--container {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+aside.tt-comment__container.shown > .tt-form > .tt-comment__pseudo--container {
+  flex: 6 1 0;
+  margin: 0;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+aside.tt-comment__container.shown > .tt-form > #tt-comment__submit {
+  flex: 1 1 0;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+aside.tt-comment__container.shown > .tt-form > #tt-comment__submit:hover {
+  border-color: var(--PrimaryBg);
+}
+
+ul.tt-comment__archives {
+  grid-column: span 2;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: var(--SecondaryBg);
+  border-radius: 0.5rem;
+  width: 100%;
+  overflow-y: auto;
+}
+
+ul.tt-comment__archives > li {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  padding: 1rem;
+  background-color: var(--PrimaryBg);
+  color: var(--cardText);
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+
+  overflow-wrap: anywhere;
+}
+
+.tt-comment__message::before {
+  content: open-quote '\a0\a0';
+  font-size: 1.3em;
+}
+
+.tt-comment__message::after {
+  content: '\a0\a0'close-quote;
+  font-size: 1.3em;
+}
+
+.tt-comment__pseudo {
+  align-self: flex-end;
+}
+
+.tt-comment__ts {
+  align-self: flex-end;
+}
+
+/* trending twits, most Liked, influencers */
+/* -------------------------------------------------------------- */
+
+.tt-mostOf {
+  /* display: grid; */
+
+  display: block;
+
+  overflow: hidden;
+  background-color: var(--SecondaryBg);
+  border-bottom: none;
+  overflow-y: auto;
+
+  max-height: 0;
+  transition: max-height 0.3s;
+}
+
+.tt-mostOf.shownTrend,
+.tt-mostOf.shownLiked,
+.tt-mostOf.shownInflu {
+  z-index: 2;
+  border-bottom: 0.2rem solid #222;
+
+  max-height: calc(100vh - 70px);
+}
+
+.tt-trending,
+.tt-mostLiked,
+.tt-influencers {
+  position: relative;
+  font-size: 1.6rem;
+  user-select: none;
+
+  display: none;
+}
+
+.tt-mostOf.shownTrend .tt-trending,
+.tt-mostOf.shownLiked .tt-mostLiked,
+.tt-mostOf.shownInflu .tt-influencers {
+  display: flex;
+}
+
+/* trending */
+
+.tt-trending {
+  justify-content: center;
+  align-items: center;
+}
+
+.tt-trending__list {
+  width: 100%;
+  height: 100%;
+  max-width: 80rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  scroll-behavior: auto;
+}
+
+.tt-trending__word {
+  background-color: var(--PrimaryText);
+  margin: 1rem;
+
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  border-radius: 2rem;
+
+  box-shadow: -0.2rem -0.2rem 0.2rem #000;
+}
+
+.tt-trending__word.small {
+  padding: 0.2rem 0.8rem;
+  font-size: 0.9em;
+  background-color: #ffa259;
+  color: var(--cardText);
+}
+
+.tt-trending__word.medium {
+  padding: 2rem;
+  font-size: 1.2em;
+  background-color: #91bd3a;
+  color: var(--cardText);
+}
+
+.tt-trending__word.big {
+  padding: 3rem;
+  font-size: 1.6em;
+  background-color: #fa4252;
+  color: var(--cardText);
+}
+
+/* Most Liked  */
+
+.tt-mostLiked {
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.tt-mostLiked > * {
+  flex: 0 1 auto;
+  transform: scale(0.9);
+}
+
+/* influencers */
+.tt-influencers {
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+}
+
+.tt-influencers .tt-influencers__card {
+  background-color: var(--CardBg);
+  color: var(--cardText);
+  padding: 1rem;
+  margin: 1rem;
+
+  box-shadow: 4px 4px rgba(200, 200, 200, 0.5);
+  border-radius: 10px;
+
+  flex: 0 0 auto;
+}
+
+/* Modal closing Background */
+.tt-transparentBg_closer {
+  display: none;
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.tt-transparentBg_closer.shown {
+  display: block;
+  z-index: 1;
+}
