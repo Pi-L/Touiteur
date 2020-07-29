@@ -1,7 +1,7 @@
 # Touiteur
 
 ## Description
-*This "twitter like" app was a JavaScript exercise I worked on while learning web development at [CEFIM][8].*
+*This "twitter like" app was a JavaScript exercise I worked on while learning web development.*
 I also learned to use Intersection Observers in order to make *[infinite scrolling][2]* possible, and to refresh only visible twits contents. 
 
 **Date : 11/2019**
